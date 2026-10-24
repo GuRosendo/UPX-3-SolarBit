@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Solarbit – Monitor de energia residencial</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ====================== TELA DE LOGIN / CADASTRO ====================== -->
+  <section id="auth">
+    <div class="auth-box">
+      <h1>Solarbit</h1>
+      <p id="authSub">Entre para acompanhar o consumo de energia da sua casa.</p>
+
+      <!-- O campo de nome só aparece no modo "Criar conta" -->
+      <label id="nameWrap" class="hidden">
+        Nome
+        <input id="authName" autocomplete="name">
+      </label>
+
+      <label>
+        E-mail
+        <input id="authEmail" type="email" autocomplete="email">
+      </label>
+
+      <label>
+        Senha
+        <input id="authPass" type="password" autocomplete="current-password">
+      </label>
+
+      <p class="err" id="authErr"></p>
+
+      <button class="btn btn-full" id="authBtn">Entrar</button>
+      <button class="link" id="authToggle">Não tem conta? Criar conta</button>
+    </div>
+  </section>
+
+  <!-- ============================== APLICATIVO ============================== -->
+  <section id="app" class="hidden">
+
+    <header>
+      <b>Solarbit</b>
+      <div>
+        <span id="who"></span>
+        <button class="btn ghost sm" id="logout">Sair</button>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- Coluna da esquerda: formulário de cadastro -->
+      <aside class="card">
+        <h2>Cadastrar eletrodoméstico</h2>
+
+        <label>
+          Modelo rápido
+          <select id="preset">
+            <option value="">Personalizado</option>
+          </select>
+        </label>
+
+        <label>
+          Nome
+          <input id="applianceName" placeholder="Ex.: Chuveiro do banheiro">
+        </label>
+
+        <div class="row2">
+          <label>
+            Potência (W)
+            <input id="appliancePower" type="number" min="1">
+          </label>
+          <label>
+            Horas por dia
+            <input id="applianceHours" type="number" min="0.1" max="24" step="0.1">
+          </label>
+        </div>
+
+        <div class="row2">
+          <label>
+            Dias por mês
+            <input id="applianceDays" type="number" min="1" max="31" value="30">
+          </label>
+          <label>
+            Começa às
+            <input id="applianceStart" type="time" value="08:00">
+          </label>
+        </div>
+
+        <p class="err" id="formErr"></p>
+        <button class="btn btn-full" id="addBtn">Adicionar aparelho</button>
+
+        <hr class="divider">
+
+        <label>
+          Tarifa (R$ por kWh)
+          <input id="tariff" type="number" min="0" step="0.01">
+        </label>
+      </aside>
+
+      <!-- Coluna da direita: resultados -->
+      <div class="col">
+
+        <!-- Resumo geral -->
+        <div class="card stats">
+          <div class="stat main">
+            <small>Consumo estimado</small>
+            <strong id="totalKwh">0</strong> kWh/mês
+          </div>
+          <div class="stat">
+            <small>Custo estimado</small>
+            <strong id="totalCost">R$ 0</strong>
+          </div>
+          <div class="stat">
+            <small>Aparelhos</small>
+            <strong id="totalCount">0</strong>
+          </div>
+        </div>
+
+        <!-- Tabela de aparelhos -->
+        <div class="card">
+          <h2>Meus aparelhos</h2>
+          <div class="scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Potência</th>
+                  <th>Uso</th>
+                  <th>Início</th>
+                  <th>kWh/mês</th>
+                  <th>R$/mês</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="applianceList"></tbody>
+            </table>
+          </div>
+          <p class="empty" id="listEmpty">Nenhum aparelho ainda. Cadastre o primeiro ao lado.</p>
+        </div>
+
+        <!-- Gráfico de barras -->
+        <div class="card">
+          <h2>Quem mais consome</h2>
+          <div id="bars"></div>
+          <p class="empty" id="barsEmpty">O gráfico aparece quando houver aparelhos.</p>
+        </div>
+
+        <!-- Dicas -->
+        <div class="card">
+          <h2>Dicas de economia</h2>
+          <ul class="tips" id="tips"></ul>
+        </div>
+
+        <!-- Sensor ESP32 (simulado) -->
+        <div class="card">
+          <h2>Sensor ESP32 (tempo real)</h2>
+
+          <div class="live">
+            <strong id="liveWatts">–</strong>
+            <span>W agora</span>
+          </div>
+
+          <svg viewBox="0 0 300 80" preserveAspectRatio="none">
+            <polyline id="liveLine" fill="none" stroke="var(--brand)" stroke-width="2" points="" />
+          </svg>
+
+          <div class="sensor-actions">
+            <button class="btn sm" id="simBtn">Iniciar simulação</button>
+            <button class="btn ghost sm" id="codeBtn">Ver código do ESP32</button>
+          </div>
+
+          <pre id="esp32Code" class="hidden">// ESP32 + sensor SCT-013 (corrente), envia a cada 2 s
+#include &lt;WiFi.h&gt;
+#include &lt;HTTPClient.h&gt;
+void loop() {
+  float amps = lerCorrente();      // leitura do SCT-013
+  float watts = amps * 127.0;      // tensão da rede
+  HTTPClient http;
+  http.begin("http://SEU_SERVIDOR/api/leitura");
+  http.addHeader("Content-Type", "application/json");
+  http.POST("{\"watts\":" + String(watts) + "}");
+  http.end();
+  delay(2000);
+}</pre>
+
+          <p class="empty note">
+            Nesta demonstração os valores são simulados a partir dos aparelhos cadastrados.
+            Com o hardware real, o ESP32 envia as leituras para o mesmo painel.
+          </p>
+        </div>
+
+      </div>
+    </main>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
