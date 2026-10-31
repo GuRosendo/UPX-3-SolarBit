@@ -1,4 +1,4 @@
-/* Solarbit – Tela de login */
+/* Solarbit – Tela de login e criar conta */
 
 #auth {
   min-height: 100vh;
@@ -9,26 +9,64 @@
 
 .auth-box {
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 2rem 1.6rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Logo quadrada (1024x1024) com borda leve */
+.logo.logo-lg {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--line);
 }
 
 .auth-box h1 {
-  font-size: 2.4rem;
+  font-size: 1.9rem;
   font-weight: 800;
   letter-spacing: -0.03em;
+  text-align: center;
 }
 
 .auth-box p {
   color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
   margin: 0.4rem 0 1.4rem;
+}
+
+.auth-box label {
+  font-size: 0.9rem;
+}
+
+/* 16px nos campos evita o zoom automático do iPhone */
+.auth-box input {
+  font-size: 1rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.auth-box .btn {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.auth-box .link {
+  display: block;
+  margin: 1rem auto 0;
+  font-size: 0.9rem;
 }
 
 /* A mensagem de erro dentro do login mantém o estilo de .err */
 .auth-box p.err {
   color: var(--bad);
+  font-size: 0.85rem;
+  text-align: left;
   margin: 0 0 0.6rem;
 }

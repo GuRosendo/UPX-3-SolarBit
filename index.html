@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/logo.ico" sizes="any">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="apple-touch-icon" href="img/logo.png">
+
   <link rel="stylesheet" href="css/01-variables.css">
   <link rel="stylesheet" href="css/02-base.css">
   <link rel="stylesheet" href="css/03-buttons.css">
@@ -20,6 +24,7 @@
   <!-- ====================== TELA DE LOGIN / CADASTRO ====================== -->
   <section id="auth">
     <div class="auth-box">
+      <img class="logo logo-lg" src="img/logo.png" alt="Logo Solarbit" width="1024" height="1024">
       <h1>Solarbit</h1>
       <p id="authSub">Entre para acompanhar o consumo de energia da sua casa.</p>
 
@@ -50,7 +55,10 @@
   <section id="app" class="hidden">
 
     <header>
-      <b>Solarbit</b>
+      <div class="brand">
+        <img class="logo" src="img/logo.png" alt="" width="1024" height="1024">
+        <b>Solarbit</b>
+      </div>
       <div>
         <span id="who"></span>
         <button class="btn ghost sm" id="logout">Sair</button>
