@@ -1,0 +1,55 @@
+/* Solarbit – Layout do aplicativo */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+}
+
+header b {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+header span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-right: 0.7rem;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.col {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+/* No celular, as colunas viram uma só */
+@media (max-width: 820px) {
+  main {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}

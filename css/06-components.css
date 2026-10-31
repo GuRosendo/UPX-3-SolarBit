@@ -1,0 +1,147 @@
+/* Solarbit – Componentes */
+
+/* Card genérico */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+/* Resumo (consumo, custo, quantidade) */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 560px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat small {
+  color: var(--muted);
+  display: block;
+}
+
+.stat strong {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.stat.main strong {
+  color: var(--brand);
+}
+
+/* Tabela de aparelhos */
+.scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* Horário de ponta destacado em âmbar */
+.peak {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+/* Gráfico de barras horizontal */
+.bar-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 70px;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0.5rem 0;
+  font-size: 0.88rem;
+}
+
+.bar {
+  height: 14px;
+  background: var(--bg);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--bar);
+  border-radius: 7px;
+}
+
+/* Dicas de economia */
+.tips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.tips li {
+  padding: 0.7rem 0.9rem;
+  border-left: 4px solid var(--amber);
+  background: var(--bg);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.92rem;
+}
+
+/* Sensor ESP32 */
+.live {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.live strong {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+svg {
+  width: 100%;
+  height: 80px;
+  display: block;
+}
+
+.sensor-actions {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.note {
+  font-size: 0.85rem;
+}
+
+pre {
+  background: var(--bg);
+  padding: 0.8rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.75rem;
+  margin: 0.8rem 0 0;
+}

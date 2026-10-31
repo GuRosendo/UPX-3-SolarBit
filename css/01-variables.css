@@ -1,0 +1,49 @@
+/* Solarbit – Variáveis de cor */
+
+:root {
+  --bg: #eef3f4;
+  --surface: #ffffff;
+  --ink: #12303a;
+  --muted: #5b7580;
+  --line: #d3e0e4;
+  --brand: #0d6e78;
+  --brand-ink: #ffffff;
+  --amber: #f2a516;
+  --bad: #c0392b;
+  --bar: #0d6e78;
+
+  /* Respeita as áreas seguras do celular (notch, barra inferior) */
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Tema escuro automático, seguindo o sistema do usuário */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1b20;
+    --surface: #162a31;
+    --ink: #e4f0f2;
+    --muted: #8fa9b2;
+    --line: #27424b;
+    --brand: #3cc0cc;
+    --brand-ink: #08262b;
+    --amber: #f5b63a;
+    --bad: #ff7b6b;
+    --bar: #3cc0cc;
+  }
+}
+
+/* Tema escuro forçado (data-theme="dark") */
+:root[data-theme="dark"] {
+  --bg: #0e1b20;
+  --surface: #162a31;
+  --ink: #e4f0f2;
+  --muted: #8fa9b2;
+  --line: #27424b;
+  --brand: #3cc0cc;
+  --brand-ink: #08262b;
+  --amber: #f5b63a;
+  --bad: #ff7b6b;
+  --bar: #3cc0cc;
+}
